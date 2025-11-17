@@ -1,6 +1,27 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useState } from "react";
+import { useForm } from "../hooks/useForm";
 
 export const LoginPage = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { formState, handleChange, handleReset } = useForm({
+    userName: "",
+    password: "",
+  });
+
+  const handleSubmit = async (e) => {
+    //espera el evento y si la funcion es verdadera aplica el trycatch
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const respuesta = await fetch("http://localhost:3000/api/profile", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {}
+  };
+
   // TODO: Integrar lógica de autenticación aquí
   // TODO: Implementar useForm para el manejo del formulario
   // TODO: Implementar función handleSubmit
